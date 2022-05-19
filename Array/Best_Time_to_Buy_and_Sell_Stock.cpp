@@ -17,31 +17,18 @@
 #define ll long long int
 using namespace std;
 
+  int maxProfit(vector<int>& prices,int n) {
 
-int *findTwoElement(int *arr, int n)
-{
-	int repeat, missing;
-	for (int i = 0; i < n; i++) {
-		int vl = arr[abs(arr[i]) - 1];
-		if (vl > 0)
-		{
-			arr[abs(arr[i]) - 1] = -vl;
-		}
-		else
-		{
-			repeat = abs(arr[i]);
-		}
-	}
-	for (int i = 0; i < n; i++)
-	{
-		if (arr[i] > 0)
-			missing = i + 1;
-	}
-	arr[0] = repeat;
-	arr[1] = missing;
-	return arr;
+  	 int minval=1e9;
+        int profit=0;
+        for(int i=0;i<n;i++){
+            	minval=min(minval,prices[i]);
+            	profit=max(profit,prices[i]- minval);
+        }
+        return profit;
 
-}
+  }
+
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -50,13 +37,11 @@ int main() {
 #endif
 	ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
-	{
-		cin >> arr[i];
+	cin>>n;
+	vector<int> prices(n);
+	for(int i=0;i<n;i++){
+		cin>>prices[i];
 	}
-	auto ans = findTwoElement(arr, n);
-	cout << ans[0] << " " << ans[1] << "\n";
+	cout<<maxProfit(prices,n);
 	return 0;
 }

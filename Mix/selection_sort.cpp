@@ -16,47 +16,41 @@
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define ll long long int
 using namespace std;
-
-
-int *findTwoElement(int *arr, int n)
+void selectionSort(int a[],int n)
 {
-	int repeat, missing;
-	for (int i = 0; i < n; i++) {
-		int vl = arr[abs(arr[i]) - 1];
-		if (vl > 0)
-		{
-			arr[abs(arr[i]) - 1] = -vl;
-		}
-		else
-		{
-			repeat = abs(arr[i]);
-		}
-	}
-	for (int i = 0; i < n; i++)
+	for(int i=0;i<n-1;i++)
 	{
-		if (arr[i] > 0)
-			missing = i + 1;
+		int min=i;
+		for(int j=i+1;j<n;j++)
+		{
+			if(a[min]>a[j])
+			{
+				min=j;
+			}
+		}
+		if(min!=i)
+			swap(a[min],a[i]);
 	}
-	arr[0] = repeat;
-	arr[1] = missing;
-	return arr;
-
+	for(int i=0;i<n;i++)
+		cout<<a[i]<<" ";
 }
-
 int main() {
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
 	freopen("output.txt", "w", stdout);
 #endif
 	ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0);
-	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
+	int t;
+	cin >> t;
+	while (t--  )
 	{
-		cin >> arr[i];
+		int n;
+		cin>>n;
+		int a[n];
+		for(int i=0;i<n;i++)
+			cin>>a[i];
+		selectionSort(a,n);
 	}
-	auto ans = findTwoElement(arr, n);
-	cout << ans[0] << " " << ans[1] << "\n";
+	
 	return 0;
 }

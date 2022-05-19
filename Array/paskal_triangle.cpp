@@ -17,31 +17,16 @@
 #define ll long long int
 using namespace std;
 
-
-int *findTwoElement(int *arr, int n)
-{
-	int repeat, missing;
-	for (int i = 0; i < n; i++) {
-		int vl = arr[abs(arr[i]) - 1];
-		if (vl > 0)
-		{
-			arr[abs(arr[i]) - 1] = -vl;
-		}
-		else
-		{
-			repeat = abs(arr[i]);
-		}
+void print_pascal(int row){
+	int res=1;
+	cout<<res<<" ";
+	for(int i=1;i<row;i++){
+		res *=(row-i);
+		res/=i;
+		cout<<res<<" ";
 	}
-	for (int i = 0; i < n; i++)
-	{
-		if (arr[i] > 0)
-			missing = i + 1;
-	}
-	arr[0] = repeat;
-	arr[1] = missing;
-	return arr;
-
 }
+
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -49,14 +34,8 @@ int main() {
 	freopen("output.txt", "w", stdout);
 #endif
 	ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0);
-	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
-	{
-		cin >> arr[i];
-	}
-	auto ans = findTwoElement(arr, n);
-	cout << ans[0] << " " << ans[1] << "\n";
+	int row;
+	cin>>row;
+	print_pascal(row);
 	return 0;
 }

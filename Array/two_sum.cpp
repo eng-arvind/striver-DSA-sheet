@@ -17,29 +17,21 @@
 #define ll long long int
 using namespace std;
 
-
-int *findTwoElement(int *arr, int n)
-{
-	int repeat, missing;
-	for (int i = 0; i < n; i++) {
-		int vl = arr[abs(arr[i]) - 1];
-		if (vl > 0)
-		{
-			arr[abs(arr[i]) - 1] = -vl;
+vector<int> twoSum(vector<int>& nums, int target) {
+	unordered_map<int,int> mp;
+	vector<int> ans;
+	for(int i=0;i<nums.size();i++){
+		if(mp.find(target-nums[i])==mp.end()){
+			mp[nums[i]]=i;
 		}
 		else
 		{
-			repeat = abs(arr[i]);
+			ans.push_back(mp[target-nums[i]]);
+			ans.push_back(i);
+			break;
 		}
 	}
-	for (int i = 0; i < n; i++)
-	{
-		if (arr[i] > 0)
-			missing = i + 1;
-	}
-	arr[0] = repeat;
-	arr[1] = missing;
-	return arr;
+	return ans;
 
 }
 
@@ -50,13 +42,12 @@ int main() {
 #endif
 	ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
-	{
-		cin >> arr[i];
-	}
-	auto ans = findTwoElement(arr, n);
-	cout << ans[0] << " " << ans[1] << "\n";
+	cin>>n;
+	vector<int> nums(n);
+	for(int i=0;i<n;i++) cin>>nums[i];
+	int target;
+	cin>>target;
+	vector<int> ans=twoSum(nums,target);
+	cout<<ans[0]<<" "<<ans[1]<<endl;
 	return 0;
 }

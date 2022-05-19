@@ -18,29 +18,24 @@
 using namespace std;
 
 
-int *findTwoElement(int *arr, int n)
-{
-	int repeat, missing;
-	for (int i = 0; i < n; i++) {
-		int vl = arr[abs(arr[i]) - 1];
-		if (vl > 0)
-		{
-			arr[abs(arr[i]) - 1] = -vl;
+void merge_two_array(int *arr1,int *arr2,int n,int m){
+
+	int i=n+m-1;
+	n=n-1;
+	m=m-1;
+	while(m>=0)
+	{
+		if(n>=0 && arr1[n]>arr2[m]){
+			arr1[i]=arr1[n];
+			n--;
 		}
 		else
 		{
-			repeat = abs(arr[i]);
+			arr1[i]=arr2[m];
+			m--;
 		}
+		i--;
 	}
-	for (int i = 0; i < n; i++)
-	{
-		if (arr[i] > 0)
-			missing = i + 1;
-	}
-	arr[0] = repeat;
-	arr[1] = missing;
-	return arr;
-
 }
 
 int main() {
@@ -49,14 +44,20 @@ int main() {
 	freopen("output.txt", "w", stdout);
 #endif
 	ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0);
-	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
-	{
-		cin >> arr[i];
+	int n,m;
+	cin>>n>>m;
+	int arr1[n+m];
+	int arr2[m];
+	for(int i=0;i<n;i++){
+		cin>>arr1[i];
 	}
-	auto ans = findTwoElement(arr, n);
-	cout << ans[0] << " " << ans[1] << "\n";
+	fill(arr1+n,arr1+n+m,0);
+	for(int i=0;i<m;i++){
+		cin>>arr2[i];
+	}
+	merge_two_array(arr1,arr2,n,m);
+	for(int i=0;i<n+m;i++){
+		cout<<arr1[i]<<" ";
+	}
 	return 0;
 }

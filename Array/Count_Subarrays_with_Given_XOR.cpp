@@ -17,31 +17,28 @@
 #define ll long long int
 using namespace std;
 
-
-int *findTwoElement(int *arr, int n)
+//Time Complexity
+// O(N) 
+// Space complexity
+// O(N)
+int subarraysXor(vector<int> &arr, int x)
 {
-	int repeat, missing;
-	for (int i = 0; i < n; i++) {
-		int vl = arr[abs(arr[i]) - 1];
-		if (vl > 0)
-		{
-			arr[abs(arr[i]) - 1] = -vl;
-		}
-		else
-		{
-			repeat = abs(arr[i]);
-		}
-	}
-	for (int i = 0; i < n; i++)
+	int xr=0;
+	int cnt=0;
+	unordered_map<int,int> mp;
+	for(int i=0;i<arr.size();i++)
 	{
-		if (arr[i] > 0)
-			missing = i + 1;
-	}
-	arr[0] = repeat;
-	arr[1] = missing;
-	return arr;
-
+		xr=xr^arr[i];
+		if(xr==x)
+			cnt++;
+		if(mp.find(xr^x)!=mp.end()){
+			cnt+=mp[xr^x];
+		}
+		mp[xr]++;
+	}			   
+	return cnt;		
 }
+
 
 int main() {
 #ifndef ONLINE_JUDGE
@@ -50,13 +47,13 @@ int main() {
 #endif
 	ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
-	{
-		cin >> arr[i];
+	cin>>n;
+	int x;
+	cin>>x;
+	vector<int> arr(n);
+	for(int i=0;i<n;i++){
+		cin>>arr[i];
 	}
-	auto ans = findTwoElement(arr, n);
-	cout << ans[0] << " " << ans[1] << "\n";
+	cout<<subarraysXor(arr,x)<<endl;
 	return 0;
 }

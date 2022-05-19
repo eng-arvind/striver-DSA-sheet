@@ -1,4 +1,4 @@
-#include <bits/stdc++.h>
+ #include <bits/stdc++.h>
 #include <vector>
 #include<bitset>
 #include<string>
@@ -16,33 +16,6 @@
 #define ps(x,y) fixed<<setprecision(y)<<x
 #define ll long long int
 using namespace std;
-
-
-int *findTwoElement(int *arr, int n)
-{
-	int repeat, missing;
-	for (int i = 0; i < n; i++) {
-		int vl = arr[abs(arr[i]) - 1];
-		if (vl > 0)
-		{
-			arr[abs(arr[i]) - 1] = -vl;
-		}
-		else
-		{
-			repeat = abs(arr[i]);
-		}
-	}
-	for (int i = 0; i < n; i++)
-	{
-		if (arr[i] > 0)
-			missing = i + 1;
-	}
-	arr[0] = repeat;
-	arr[1] = missing;
-	return arr;
-
-}
-
 int main() {
 #ifndef ONLINE_JUDGE
 	freopen("input.txt", "r", stdin);
@@ -50,13 +23,29 @@ int main() {
 #endif
 	ios_base::sync_with_stdio(false), cin.tie(0), cout.tie(0);
 	int n;
-	cin >> n;
-	int arr[n];
-	for (int i = 0; i < n; i++)
+	cin>>n;
+	int a[n];
+	for(int i=0;i<n;i++)
 	{
-		cin >> arr[i];
+		cin>>a[i];
 	}
-	auto ans = findTwoElement(arr, n);
-	cout << ans[0] << " " << ans[1] << "\n";
+	int i,max,loc=n,j,temp;
+	if(n%2==0)
+	{
+		max=0;
+		for(int i=0;i<n;i++)
+		cout<<max<<" ";
+	     
+
+	}
+	for(int i=0;i<loc/2;i++)
+	{
+		temp=a[n-i-1];
+		a[n-i-1]=a[i];
+		a[i]=temp;		
+	}
+	for(int i=0;i<n;i++)
+		cout<<a[i]<<" ";
+
 	return 0;
 }
